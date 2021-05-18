@@ -101,7 +101,7 @@ __global__ void sum_kernel(float *values, float *result_values)
  */
 extern "C" float computeOffsetCUDA(std::vector<float> fdata, int map_size)
 {
-	int size = fdata.size(); //262144
+	int size = (int)fdata.size(); //262144
 	size_t byte_size = size * sizeof(float); // 262144*4 = 1,048,576 bytes
 
 	float *device_vector;

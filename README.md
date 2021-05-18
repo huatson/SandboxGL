@@ -1,2 +1,3 @@
 # SandboxGL
-testing CUDA implementations for OpenGL.
+Basic CUDA implementations for OpenGL.
+

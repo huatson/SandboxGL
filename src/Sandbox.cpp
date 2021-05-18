@@ -45,8 +45,8 @@ static void pre_render(SandboxCamera* camera, SDL_Joystick* input_controller)
 {
 	int xinput = SDL_JoystickGetAxis(input_controller, EGamePadButton::GAMEPAD_STICK_R_HORIZONTAL);
 	int yinput = SDL_JoystickGetAxis(input_controller, EGamePadButton::GAMEPAD_STICK_R_VERTICAL);
-	float zoom_in = SDL_JoystickGetButton(input_controller, EGamePadButton::GAMEPAD_SHOULDER_L) * 20.0;
-	float zoom_out = SDL_JoystickGetButton(input_controller, EGamePadButton::GAMEPAD_SHOULDER_R) * 20.0;
+	float zoom_in = SDL_JoystickGetButton(input_controller, EGamePadButton::GAMEPAD_SHOULDER_L) * 20.0f;
+	float zoom_out = SDL_JoystickGetButton(input_controller, EGamePadButton::GAMEPAD_SHOULDER_R) * 20.0f;
 
 
 	camera->UpdateCamera(xinput, yinput, 16, 5, zoom_in, zoom_out);
@@ -98,7 +98,9 @@ void render(SandboxCamera* camera,
 	glVertexAttribPointer(glGetAttribLocation(groundShaderShadow->program_shader, "vPosition"), 3, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)(sizeof(float) * 0));
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sandboxmap->texture_buffer_object);
-	glDrawElements(GL_TRIANGLES, (sandboxmap->MapData.size() - 1) * (sandboxmap->MapData[0].size() - 1) * 2 * 3, GL_UNSIGNED_INT, (void*)0);
+	GLsizei count = (GLsizei)(sandboxmap->MapData.size() - 1) * (GLsizei)(sandboxmap->MapData[0].size() - 1) * 2 * 3;
+	GLvoid* dev = (void*)0;
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, dev);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glDisableVertexAttribArray(glGetAttribLocation(groundShaderShadow->program_shader, "vPosition"));
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -156,7 +158,7 @@ void render(SandboxCamera* camera,
 	glVertexAttribPointer(glGetAttribLocation(groundShader->program_shader, "vAO"), 1, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (void*)(sizeof(float) * 6));
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sandboxmap->texture_buffer_object);
-	glDrawElements(GL_TRIANGLES, (sandboxmap->MapData.size() - 1) * (sandboxmap->MapData[0].size() - 1) * 2 * 3, GL_UNSIGNED_INT, (void*)0);
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, dev);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 

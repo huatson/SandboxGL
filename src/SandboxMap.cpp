@@ -35,8 +35,8 @@ float SandboxMap::sample(glm::vec2 Position, int w, int h)
 	Position.x = (Position.x / horizontal_scale) + w / 2;
 	Position.y = (Position.y / horizontal_scale) + h / 2;
 
-	float a0 = fmod(Position.x, 1.0);
-	float a1 = fmod(Position.y, 1.0);
+	float a0 = fmod(Position.x, 1.0f);
+	float a1 = fmod(Position.y, 1.0f);
 
 	int x0 = (int)std::floor(Position.x);
 	int x1 = (int)std::ceil(Position.x);
@@ -138,7 +138,7 @@ float* SandboxMap::computeAmbienOcclusionCPU(const glm::vec3* norms, const glm::
 						}
 					}
 				}
-				aos[x + y * w] = 1.0 - (ao_amount / CUSTOM_AO_SAMPLES);
+				aos[x + y * w] = 1.0f - (ao_amount / CUSTOM_AO_SAMPLES);
 				fprintf(ao_file, y == h - 1 ? "%f\n" : "%f ", aos[x + y * w]);
 			}
 			else
@@ -290,8 +290,8 @@ void SandboxMap::load(const char* filename, float multiplier, EMapFormat map_for
 
 	printf("Finished\n");
 	printf("Computing Samples-Offsets...\n");
-	int w = MapData.size();
-	int h = MapData[0].size(); // 533
+	int w = (int)MapData.size();
+	int h = (int)MapData[0].size(); // 533
 	int map_size = w * h;
 
 	printf("Map Size: (cols) %d (rows) %d, flatten_data: %d\n", w, h, (int)flatten_data.size());

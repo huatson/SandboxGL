@@ -3,9 +3,9 @@
 SandboxCamera::SandboxCamera() 
 {
 	target = glm::vec3(0.f, 0.f, 0.f);
-	CameraPitch = M_PI / 6.f;
-	CameraYaw = 0.f;
-	CameraOffsetDistance = 300.f;
+	CameraPitch = (float)M_PI / 6.0f;
+	CameraYaw = 0.0f;
+	CameraOffsetDistance = 300.0f;
 }
 
 SandboxCamera::~SandboxCamera()
@@ -43,7 +43,7 @@ void SandboxCamera::UpdateCamera(int xInput, int yInput, int TargetMinPitch, int
 		yInput = 0;
 	};
 	CameraPitch = (float)glm::clamp(CameraPitch + (yInput / 32768.0) * 0.03, M_PI / TargetMinPitch, 2 * M_PI / TargetMaxPitch);
-	CameraYaw += (xInput / 32768.0) * 0.03;
+	CameraYaw += (xInput / 32768.0f) * 0.03f;
 	CameraOffsetDistance = zOut > 1e-5 ? (float)glm::clamp(CameraOffsetDistance - zOut, 10.0f, 10000.0f) : CameraOffsetDistance;
 	CameraOffsetDistance = zIn > 1e-5 ? (float)glm::clamp(CameraOffsetDistance + zIn, 10.0f, 10000.0f) : CameraOffsetDistance;
 }

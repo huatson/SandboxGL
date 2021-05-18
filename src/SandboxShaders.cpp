@@ -48,7 +48,7 @@ void SandboxShaders::internal_load_shader(const char* filename, GLenum type, GLu
 		fprintf(stdout, "Loaded file %s\n", filename);
 	}
 
-	long size = SDL_RWseek(file, 0, SEEK_END);
+	long size = (long)SDL_RWseek(file, 0, SEEK_END);
 	char* contents = (char*)malloc(size + 1);
 	contents[size] = '\0';
 
